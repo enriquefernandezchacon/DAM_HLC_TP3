@@ -66,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
         btnSendPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (etBody.getText().toString().trim().equals("") || etTitle.getText().toString().trim().equals("")) {
+                    Toast.makeText(MainActivity.this, "No puede haber campos vacíos", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 NewPost newPost = new NewPost(etTitle.getText().toString(), etBody.getText().toString(), "1");
                 Call<Post> call = apiService.addPost(newPost);
                 call.enqueue(new Callback<Post>() {
